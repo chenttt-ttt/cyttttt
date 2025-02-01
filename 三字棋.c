@@ -38,12 +38,14 @@ void InitBoard(char board[ROW][COL], int row, int col)
 //Print board
 void DisPlayBoard(char board[ROW][COL], int row, int col)
 {
+    printf("  1   2   3\n");  // 添加列号
     for(int i = 0; i < row; i++)
     {
+        printf("%d ", i + 1);  // 添加行号
         //Print digit
         for(int j = 0; j < col; j++)
         {
-            printf(" %c ",board[i][j]);
+            printf(" %c ", board[i][j]);
             if(j < col - 1)
             {
                 printf("|");
@@ -53,6 +55,7 @@ void DisPlayBoard(char board[ROW][COL], int row, int col)
         //Print split message
         if(i < row - 1)
         {
+            printf("  ");  // 对齐分隔线
             for(int j = 0; j < col; j++)
             {
                 printf("---");
@@ -71,10 +74,11 @@ void PlayerMove(char board[ROW][COL], int row, int col)
 {
     int x = 0;
     int y = 0;
-    printf("plese choose coordinate\n");
-    scanf("%d %d",&x,&y);
     while(1)
     {
+        printf("请选择下棋坐标(行 列)：");
+        scanf("%d %d",&x,&y);
+        
         if(x >= 1 && x <= row && y >= 1 && y <= col)
         {
             if(board[x - 1][y - 1] == ' ')
@@ -84,12 +88,12 @@ void PlayerMove(char board[ROW][COL], int row, int col)
             }
             else
             {
-                printf("Coordinates are occupied, can not play chess, please select another coordinate\n");
+                printf("该位置已被占用，请重新选择\n");
             }
         }
         else
         {
-            printf("error,please choose again\n");
+            printf("坐标非法，请重新输入\n");
         }
     }
 }
@@ -146,7 +150,8 @@ char IsWin(char board[ROW][COL], int row, int col)
             return board[1][j];
         }
     }
-    if((board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[1][1] != ' ') || board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[1][1] != ' ')
+    if((board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[1][1] != ' ') || 
+       (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[1][1] != ' '))
     {
         return board[1][1];
     }
@@ -175,19 +180,20 @@ void game()
     while(1)
     {
         PlayerMove(board,ROW,COL);
+        DisPlayBoard(board,ROW,COL);  // 显示玩家移动后的棋盘
         ret = IsWin(board,ROW,COL);
         if(ret != 'C')
         {
             break;
         }
-        DisPlayBoard(board,ROW,COL);
+        
         ComputerMove(board,ROW,COL);
+        DisPlayBoard(board,ROW,COL);  // 显示电脑移动后的棋盘
         ret = IsWin(board,ROW,COL);
         if(ret != 'C')
         {
             break;
         }
-        DisPlayBoard(board,ROW,COL);
     }
     if(ret == '*')
     {
