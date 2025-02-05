@@ -139,48 +139,6 @@ int main()
         printf("please choose\n");
         scanf("%d",&input);
         switch(input)
-            void menu()
-            {
-                printf("************************\n");
-                printf("*****1.play  0.exit*****\n");
-                printf("************************\n");
-            }
-
-        void game()
-        {
-            char mine[ROWS][COLS] = {0};
-            char show[ROWS][COLS] = {0};
-            InitBoard(mine,ROWS,COLS,'0');
-            InitBoard(show,ROWS,COLS,'*');
-            SetMine(mine, ROW, COL);
-            DisPlayBoard(show,ROW,COL);
-            FindMine(mine, show,ROW,COL);
-        }
-        int main()
-        {
-            int input = 0;
-            srand((unsigned int)time(NULL));
-            do
-            {
-                menu();
-                printf("please choose\n");
-                scanf("%d",&input);
-                switch(input)
-                {
-                    case 1:
-                        game();
-                        break;
-                    case 0:
-                        printf("exit game");
-                        break;
-                    default:
-                        printf("error");
-                        break;
-                }
-            }while(input);
-            return 0;
-        }
-
         {
             case 1:
                 game();
